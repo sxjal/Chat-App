@@ -46,19 +46,18 @@ class _AuthScreenState extends State<AuthScreen> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           TextFormField(
-                            key: const ValueKey('email'),
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: const InputDecoration(
-                              labelText: 'Email Address',
-                            ),
-                            autocorrect: false,
-                            textCapitalization: TextCapitalization.none,
-                            autofocus: true,
-                            validator: (value) =>
-                                (value!.trim().isEmpty || !value.contains('@'))
-                                    ? 'Please enter a valid password'
-                                    : null
-                          ),
+                              key: const ValueKey('email'),
+                              keyboardType: TextInputType.emailAddress,
+                              decoration: const InputDecoration(
+                                labelText: 'Email Address',
+                              ),
+                              autocorrect: false,
+                              textCapitalization: TextCapitalization.none,
+                              autofocus: true,
+                              validator: (value) => (value!.trim().isEmpty ||
+                                      !value.contains('@'))
+                                  ? 'Please enter a valid password'
+                                  : null),
                           TextFormField(
                             key: const ValueKey('password'),
                             keyboardType: TextInputType.visiblePassword,
@@ -86,6 +85,10 @@ class _AuthScreenState extends State<AuthScreen> {
                             autocorrect: false,
                             textCapitalization: TextCapitalization.none,
                             autofocus: true,
+                            validator: (value) => (value!.trim().isEmpty ||
+                                    value.trim().length < 6)
+                                ? 'Password must be atleast 6 characters long'
+                                : null,
                           ),
                           const SizedBox(
                             height: 12,
