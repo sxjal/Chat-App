@@ -54,6 +54,10 @@ class _AuthScreenState extends State<AuthScreen> {
                             autocorrect: false,
                             textCapitalization: TextCapitalization.none,
                             autofocus: true,
+                            validator: (value) =>
+                                (value!.trim().isEmpty || !value.contains('@'))
+                                    ? 'Please enter a valid password'
+                                    : null
                           ),
                           TextFormField(
                             key: const ValueKey('password'),
@@ -87,11 +91,20 @@ class _AuthScreenState extends State<AuthScreen> {
                             height: 12,
                           ),
                           ElevatedButton(
-                            child: Text(_islogin ? 'Login' : "Sign Up"),
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 40,
+                                vertical: 8,
+                              ),
+                            ),
                             onPressed: () {},
+                            child: Text(_islogin ? 'Login' : "Sign Up"),
                           ),
                           const SizedBox(
-                            height: 12,
+                            height: 8,
                           ),
                           TextButton(
                             child: _islogin
