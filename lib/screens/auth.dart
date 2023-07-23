@@ -11,8 +11,8 @@ class _AuthScreenState extends State<AuthScreen> {
   final _formkey = GlobalKey<FormState>();
   var _islogin = true;
   var passwordshown = false;
-  var enteredemail = "";
-  var enteredpassword = "";
+  var _enteredemail = "";
+  var _enteredpassword = "";
 
   void _submit() {
     final _isvalid = _formkey.currentState!.validate();
@@ -71,7 +71,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                 (value!.trim().isEmpty || !value.contains('@'))
                                     ? 'Please enter a valid Email Address'
                                     : null,
-                            onSaved: (newValue) => newValue!,
+                            onSaved: (newValue) => _enteredemail = newValue!,
                           ),
                           TextFormField(
                             key: const ValueKey('password'),
@@ -104,6 +104,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                     value.trim().length < 6)
                                 ? 'Password must be atleast 6 characters long'
                                 : null,
+                            onSaved: (newValue) => _enteredpassword = newValue!,
                           ),
                           const SizedBox(
                             height: 12,
