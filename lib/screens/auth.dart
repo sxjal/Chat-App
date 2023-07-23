@@ -12,8 +12,21 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,
-      body: const Center(
-        child: Text('Auth Screen'),
+      body: Center(
+        child: 
+        SingleChildScrollView(child: 
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(bottom: 20, top: 30, left: 20, right: 20,),
+              width: 200,
+            ),
+            Form(child: ),
+          ],
+        )),
       ),
     );
   }
