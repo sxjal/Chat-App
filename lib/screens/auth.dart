@@ -13,7 +13,7 @@ class _AuthScreenState extends State<AuthScreen> {
   var passwordshown = false;
 
   void _submit() {
-    _formkey.currentState!.validate();
+    final _isvalid = _formkey.currentState!.validate();
   }
 
   @override
@@ -63,7 +63,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               autofocus: true,
                               validator: (value) => (value!.trim().isEmpty ||
                                       !value.contains('@'))
-                                  ? 'Please enter a valid password'
+                                  ? 'Please enter a valid Email Address'
                                   : null),
                           TextFormField(
                             key: const ValueKey('password'),
