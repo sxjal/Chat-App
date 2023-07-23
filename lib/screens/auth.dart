@@ -11,9 +11,15 @@ class _AuthScreenState extends State<AuthScreen> {
   final _formkey = GlobalKey<FormState>();
   var _islogin = true;
   var passwordshown = false;
+  var enteredemail = "";
+  var enteredpassword = "";
 
   void _submit() {
     final _isvalid = _formkey.currentState!.validate();
+
+    if (_isvalid) {
+      _formkey.currentState!.save();
+    }
   }
 
   @override
@@ -53,18 +59,20 @@ class _AuthScreenState extends State<AuthScreen> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           TextFormField(
-                              key: const ValueKey('email'),
-                              keyboardType: TextInputType.emailAddress,
-                              decoration: const InputDecoration(
-                                labelText: 'Email Address',
-                              ),
-                              autocorrect: false,
-                              textCapitalization: TextCapitalization.none,
-                              autofocus: true,
-                              validator: (value) => (value!.trim().isEmpty ||
-                                      !value.contains('@'))
-                                  ? 'Please enter a valid Email Address'
-                                  : null),
+                            key: const ValueKey('email'),
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: const InputDecoration(
+                              labelText: 'Email Address',
+                            ),
+                            autocorrect: false,
+                            textCapitalization: TextCapitalization.none,
+                            autofocus: true,
+                            validator: (value) =>
+                                (value!.trim().isEmpty || !value.contains('@'))
+                                    ? 'Please enter a valid Email Address'
+                                    : null,
+                            onSaved: (newValue) => newValue!,
+                          ),
                           TextFormField(
                             key: const ValueKey('password'),
                             keyboardType: TextInputType.visiblePassword,
