@@ -67,10 +67,11 @@ class _AuthScreenState extends State<AuthScreen> {
                             autocorrect: false,
                             textCapitalization: TextCapitalization.none,
                             autofocus: true,
-                            validator: (value) =>
-                                (value!.trim().isEmpty || !value.contains('@'))
-                                    ? 'Please enter a valid Email Address'
-                                    : null,
+                            validator: (value) => (value!.trim().isEmpty ||
+                                    !value.contains('@') ||
+                                    !value.contains('.com'))
+                                ? 'Please enter a valid Email Address'
+                                : null,
                             onSaved: (newValue) => _enteredemail = newValue!,
                           ),
                           TextFormField(
