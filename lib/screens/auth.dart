@@ -8,8 +8,14 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  final _formkey = GlobalKey<FormState>();
   var _islogin = true;
   var passwordshown = false;
+
+  void _submit() {
+    _formkey.currentState!.validate();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,6 +48,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(16),
                     child: Form(
+                      key: _formkey,
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -103,7 +110,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                 vertical: 8,
                               ),
                             ),
-                            onPressed: () {},
+                            onPressed: _submit,
                             child: Text(_islogin ? 'Login' : "Sign Up"),
                           ),
                           const SizedBox(
