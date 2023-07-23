@@ -45,6 +45,8 @@ class _AuthScreenState extends State<AuthScreen> {
                             labelText: 'Email Address',
                           ),
                           autocorrect: false,
+                          textCapitalization: TextCapitalization.none,
+                          autofocus: true,
                         ),
                       ],
                     ),
