@@ -13,18 +13,38 @@ class _AuthScreenState extends State<AuthScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: Center(
-        child: 
-        SingleChildScrollView(child: 
-        Column(
+        child: SingleChildScrollView(
+            child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              margin: const EdgeInsets.only(bottom: 20, top: 30, left: 20, right: 20,),
+              margin: const EdgeInsets.only(
+                bottom: 20,
+                top: 30,
+                left: 20,
+                right: 20,
+              ),
               width: 200,
+              child: Image.asset('assets/chat.png'),
             ),
-            Form(child: ),
+            Card(
+              margin: const EdgeInsets.all(20),
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Form(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                          
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         )),
       ),
