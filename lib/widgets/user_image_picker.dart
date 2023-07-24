@@ -1,6 +1,7 @@
 import "dart:io";
 
 import "package:firebase_auth/firebase_auth.dart";
+import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:image_picker/image_picker.dart";
 
@@ -12,12 +13,57 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-
-  void _pickimage(){
-    
-    ImagePicker().pickImage(source: ImageSource.gallery);
-
+  File? _selectedimage;
+  final imagepicker = ImagePicker();
+  var pickedimage;
+  void _pickgallery() async {
+    pickedimage = await imagepicker.pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 600,
+    );
+    Navigator.pop(context);
+    _onpickimage(pickedimage);
   }
+
+  void _pickcamera() async {
+    pickedimage = await imagepicker.pickImage(
+      source: ImageSource.camera,
+      maxWidth: 600,
+    );
+    Navigator.pop(context);
+    _onpickimage(pickedimage);
+  }
+
+  void _onpickimage(var pickedimage) {
+    if (pickedimage == null) {
+      return;
+    } else {
+      setState(() {
+        _selectedimage = File(pickedimage.path);
+      });
+    }
+  }
+
+  void _takepicture() {
+    showCupertinoDialog(
+      context: context,
+      builder: (ctx) => CupertinoAlertDialog(
+        title: const Text('Upload Image'),
+        content: const Text('Select one!'),
+        actions: [
+          TextButton(
+            onPressed: _pickgallery,
+            child: const Text('Pick Image'),
+          ),
+          TextButton(
+            onPressed: _pickcamera,
+            child: const Text('Click Image'),
+          )
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(context) {
     return Column(
@@ -25,7 +71,7 @@ class _ChatScreenState extends State<ChatScreen> {
         const CircleAvatar(
           radius: 40,
           backgroundColor: Colors.grey,
-          foregroundImage: ,
+          // foregroundImage: ,
         ),
         TextButton.icon(
           onPressed: () {},
