@@ -8,9 +8,6 @@
 	<string>This app requires access to the camera.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>This app requires access to microphone.</string>
-	<string></string>
-	<key></key>
-	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
