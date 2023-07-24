@@ -17,7 +17,7 @@ class _AuthScreenState extends State<AuthScreen> {
   var _enteredemail = "";
   var _enteredpassword = "";
 
-  void _submit() {
+  void _submit() async {
     final _isvalid = _formkey.currentState!.validate();
     if (!_isvalid) return;
 
@@ -27,6 +27,12 @@ class _AuthScreenState extends State<AuthScreen> {
       // Log user in
     } else {
       // Sign user up
+      try {
+        final userCredentials = await _firebase.createUserWithEmailAndPassword(
+            email: _enteredemail, password: _enteredpassword);
+      } catch (error) {
+        ///if()
+      }
     }
   }
 
