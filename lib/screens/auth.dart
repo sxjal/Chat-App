@@ -23,36 +23,36 @@ class _AuthScreenState extends State<AuthScreen> {
     if (!_isvalid) return;
 
     _formkey.currentState!.save();
+    try {
+      if (_islogin) {
+        // Log user in
+        final userCredentials = await _firebase.signInWithEmailAndPassword(
+            email: _enteredemail, password: _enteredpassword);
+      } else {
+        // Sign user up
 
-    if (_islogin) {
-      // Log user in
-      _firebase.signInWithEmailAndPassword(
-          email: _enteredemail, password: _enteredpassword);
-    } else {
-      // Sign user up
-      try {
         final userCredentials = await _firebase.createUserWithEmailAndPassword(
             email: _enteredemail, password: _enteredpassword);
 
         _firebase.currentUser!.updateDisplayName(_enteredemail);
 
         print(userCredentials);
-      } on FirebaseAuthException catch (error) {
-        if (error.code == 'email-already-in-use') {
-          errorcode = 'The account already exists for that email.';
-        } else if (error.code == 'weak-password') {
-          errorcode = 'The password provided is too weak.';
-        } else if (error.code == 'invalid-email') {
-          errorcode = 'The email address is not valid.';
-        }
-        ScaffoldMessenger.of(context).clearSnackBars();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(errorcode ?? 'An error occured! Please try again.'),
-            backgroundColor: Theme.of(context).colorScheme.error,
-          ),
-        );
       }
+    } on FirebaseAuthException catch (error) {
+      if (error.code == 'email-already-in-use') {
+        errorcode = 'The account already exists for that email.';
+      } else if (error.code == 'weak-password') {
+        errorcode = 'The password provided is too weak.';
+      } else if (error.code == 'invalid-email') {
+        errorcode = 'The email address is not valid.';
+      }
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(errorcode ?? 'An error occured! Please try again.'),
+          backgroundColor: Theme.of(context).colorScheme.error,
+        ),
+      );
     }
   }
 
