@@ -165,7 +165,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               ),
                             ),
                             onPressed: _submit,
-                            child: Text(_islogin ? 'Login' : "Sign Up"),
+                            child: Text(_islogin ? 'Login' : "Sign-Up"),
                           ),
                           const SizedBox(
                             height: 8,
