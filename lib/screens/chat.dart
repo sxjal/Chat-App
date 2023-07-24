@@ -7,7 +7,7 @@ class ChatScreen extends StatelessWidget {
   Widget build(context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Chat"),
+        title: const Text("Flutter Chat"),
         actions: [
           IconButton(
             onPressed: () {},
