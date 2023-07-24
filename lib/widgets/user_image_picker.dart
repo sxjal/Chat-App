@@ -16,6 +16,7 @@ class _ChatScreenState extends State<ChatScreen> {
   File? _selectedimage;
   final imagepicker = ImagePicker();
   var pickedimage;
+
   void _pickgallery() async {
     pickedimage = await imagepicker.pickImage(
       source: ImageSource.gallery,
@@ -53,7 +54,7 @@ class _ChatScreenState extends State<ChatScreen> {
         actions: [
           TextButton(
             onPressed: _pickgallery,
-            child: const Text('Pick Image'),
+            child: const Text('Pick Image from Gallery'),
           ),
           TextButton(
             onPressed: _pickcamera,
@@ -68,13 +69,14 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(context) {
     return Column(
       children: [
-        const CircleAvatar(
+        CircleAvatar(
           radius: 40,
           backgroundColor: Colors.grey,
-          // foregroundImage: ,
+          foregroundImage:
+              _selectedimage == null ? FileImage(_selectedimage!) : null,
         ),
         TextButton.icon(
-          onPressed: () {},
+          onPressed: _takepicture,
           icon: const Icon(Icons.image),
           label: Text(
             "Add Image",
