@@ -1,18 +1,16 @@
 import "dart:io";
-
-import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:image_picker/image_picker.dart";
 
-class ChatScreen extends StatefulWidget {
-  const ChatScreen({Key? key}) : super(key: key);
+class UserImagePicker extends StatefulWidget {
+  const UserImagePicker({Key? key}) : super(key: key);
 
   @override
-  State<ChatScreen> createState() => _ChatScreenState();
+  State<UserImagePicker> createState() => _UserImagePickerState();
 }
 
-class _ChatScreenState extends State<ChatScreen> {
+class _UserImagePickerState extends State<UserImagePicker> {
   File? _selectedimage;
   final imagepicker = ImagePicker();
   var pickedimage;
@@ -73,7 +71,7 @@ class _ChatScreenState extends State<ChatScreen> {
           radius: 40,
           backgroundColor: Colors.grey,
           foregroundImage:
-              _selectedimage == null ? FileImage(_selectedimage!) : null,
+              _selectedimage != null ? FileImage(_selectedimage!) : null,
         ),
         TextButton.icon(
           onPressed: _takepicture,
