@@ -28,6 +28,7 @@ class _AuthScreenState extends State<AuthScreen> {
         // Log user in
         final userCredentials = await _firebase.signInWithEmailAndPassword(
             email: _enteredemail, password: _enteredpassword);
+        print(userCredentials);
       } else {
         // Sign user up
 
@@ -45,6 +46,16 @@ class _AuthScreenState extends State<AuthScreen> {
         errorcode = 'The password provided is too weak.';
       } else if (error.code == 'invalid-email') {
         errorcode = 'The email address is not valid.';
+      } else if (errorcode == "user-disabled") {
+        errorcode = "The user account has been disabled by an administrator.";
+      } else if (errorcode == "user-not-found") {
+        errorcode =
+            "There is no user record corresponding to this identifier. The user may have been deleted.";
+      } else if (errorcode == "wrong-password") {
+        errorcode =
+            "The username or password is invalid or the user does not have a password.";
+      } else {
+        errorcode = error.message;
       }
       ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
