@@ -1,6 +1,7 @@
 import 'dart:js_interop';
 
 import 'package:chatapp/screens/auth.dart';
+import 'package:chatapp/screens/chat.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -29,7 +30,13 @@ class App extends StatelessWidget {
       ),
       home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {},
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return const ChatScreen();
+          } else {
+            return const AuthScreen();
+          }
+        },
       ),
     );
   }
