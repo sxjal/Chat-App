@@ -19,6 +19,7 @@ class _AuthScreenState extends State<AuthScreen> {
 
   void _submit() async {
     final _isvalid = _formkey.currentState!.validate();
+    String? errorcode;
     if (!_isvalid) return;
 
     _formkey.currentState!.save();
@@ -30,8 +31,21 @@ class _AuthScreenState extends State<AuthScreen> {
       try {
         final userCredentials = await _firebase.createUserWithEmailAndPassword(
             email: _enteredemail, password: _enteredpassword);
-      } catch (error) {
-        ///if()
+      } on FirebaseAuthException catch (error) {
+        if (error.code == 'email-already-in-use') {
+          errorcode = 'The account already exists for that email.';
+        } else if (error.code == 'weak-password') {
+          errorcode = 'The password provided is too weak.';
+        } else if (error.code == 'invalid-email') {
+          errorcode = 'The email address is not valid.';
+        }
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(errorcode!),
+            backgroundColor: Theme.of(context).colorScheme.error,
+          ),
+        );
       }
     }
   }
