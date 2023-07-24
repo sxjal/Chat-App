@@ -31,6 +31,10 @@ class _AuthScreenState extends State<AuthScreen> {
       try {
         final userCredentials = await _firebase.createUserWithEmailAndPassword(
             email: _enteredemail, password: _enteredpassword);
+
+        _firebase.currentUser!.updateDisplayName(_enteredemail);
+         
+        print(userCredentials);
       } on FirebaseAuthException catch (error) {
         if (error.code == 'email-already-in-use') {
           errorcode = 'The account already exists for that email.';
@@ -42,7 +46,7 @@ class _AuthScreenState extends State<AuthScreen> {
         ScaffoldMessenger.of(context).clearSnackBars();
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(errorcode!),
+            content: Text(errorcode ?? 'An error occured! Please try again.'),
             backgroundColor: Theme.of(context).colorScheme.error,
           ),
         );
