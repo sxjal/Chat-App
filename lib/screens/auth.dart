@@ -59,7 +59,7 @@ class _AuthScreenState extends State<AuthScreen> {
         firebaseimageupload.putFile(_selectedimage!);
         final imageurl = firebaseimageupload.getDownloadURL();
 
-        FirebaseFirestore.instance
+        await FirebaseFirestore.instance
             .collection("users")
             .doc(userCredentials.user!.uid)
             .set(
