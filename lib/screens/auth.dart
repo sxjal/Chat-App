@@ -177,6 +177,8 @@ class _AuthScreenState extends State<AuthScreen> {
                           const SizedBox(
                             height: 12,
                           ),
+                          if (_isauthenticating)
+                            const CircularProgressIndicator(),
                           if (!_isauthenticating)
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
