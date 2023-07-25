@@ -15,6 +15,7 @@ class AuthScreen extends StatefulWidget {
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  var _isauthenticating = false;
   final _formkey = GlobalKey<FormState>();
   var _islogin = true;
   var passwordshown = false;
@@ -29,6 +30,7 @@ class _AuthScreenState extends State<AuthScreen> {
 
     _formkey.currentState!.save();
     try {
+      _isauthenticating = true;
       if (_islogin) {
         // Log user in
         final userCredentials = await _firebase.signInWithEmailAndPassword(
@@ -52,7 +54,6 @@ class _AuthScreenState extends State<AuthScreen> {
                 '${userCredentials.user!.uid}.jpg'); //could also use _firebase.currentUser!.uid
         firebaseimageupload.putFile(_selectedimage!);
         final imageurl = firebaseimageupload.getDownloadURL();
-        print(imageurl.toString());
       }
     } on FirebaseAuthException catch (error) {
       if (error.code == 'email-already-in-use') {
@@ -176,34 +177,36 @@ class _AuthScreenState extends State<AuthScreen> {
                           const SizedBox(
                             height: 12,
                           ),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
+                          if (!_isauthenticating)
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 40,
+                                  vertical: 8,
+                                ),
                               ),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 40,
-                                vertical: 8,
-                              ),
+                              onPressed: _submit,
+                              child: Text(_islogin ? 'Login' : "Sign-Up"),
                             ),
-                            onPressed: _submit,
-                            child: Text(_islogin ? 'Login' : "Sign-Up"),
-                          ),
                           const SizedBox(
                             height: 8,
                           ),
-                          TextButton(
-                            child: _islogin
-                                ? const Text("Create an Account")
-                                : const Text("Already have an account"),
-                            onPressed: () {
-                              setState(
-                                () {
-                                  _islogin = !_islogin;
-                                },
-                              );
-                            },
-                          ),
+                          if (!_isauthenticating)
+                            TextButton(
+                              child: _islogin
+                                  ? const Text("Create an Account")
+                                  : const Text("Already have an account"),
+                              onPressed: () {
+                                setState(
+                                  () {
+                                    _islogin = !_islogin;
+                                  },
+                                );
+                              },
+                            ),
                         ],
                       ),
                     ),
