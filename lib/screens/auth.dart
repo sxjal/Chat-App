@@ -104,7 +104,12 @@ class _AuthScreenState extends State<AuthScreen> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          if (!_islogin) const UserImagePicker(),
+                          if (!_islogin)
+                            UserImagePicker(
+                              onpickimage: (pickedimage) {
+                                _selectedimage = pickedimage;
+                              },
+                            ),
                           TextFormField(
                             key: const ValueKey('email'),
                             keyboardType: TextInputType.emailAddress,
