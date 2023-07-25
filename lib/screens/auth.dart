@@ -51,7 +51,8 @@ class _AuthScreenState extends State<AuthScreen> {
             .child(
                 '${userCredentials.user!.uid}.jpg'); //could also use _firebase.currentUser!.uid
         firebaseimageupload.putFile(_selectedimage!);
-        final imageurl = await firebaseimageupload.getDownloadURL();
+        final imageurl = firebaseimageupload.getDownloadURL();
+        print(imageurl.toString());
       }
     } on FirebaseAuthException catch (error) {
       if (error.code == 'email-already-in-use') {
