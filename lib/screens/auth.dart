@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:chatapp/widgets/user_image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,6 +19,7 @@ class _AuthScreenState extends State<AuthScreen> {
   var passwordshown = false;
   var _enteredemail = "";
   var _enteredpassword = "";
+  File? _selectedimage;
 
   void _submit() async {
     final _isvalid = _formkey.currentState!.validate();
