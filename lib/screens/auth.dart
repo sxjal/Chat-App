@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:chatapp/widgets/user_image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -34,11 +35,23 @@ class _AuthScreenState extends State<AuthScreen> {
             email: _enteredemail, password: _enteredpassword);
       } else {
         // Sign user up
+        //upload data to the database when user is created.
 
+        //creating new user
         final userCredentials = await _firebase.createUserWithEmailAndPassword(
             email: _enteredemail, password: _enteredpassword);
 
+        //updating uers details
+        //display name
         _firebase.currentUser!.updateDisplayName(_enteredemail);
+        //profile image
+        final firebaseimageupload = FirebaseStorage.instance
+            .ref()
+            .child('user_images')
+            .child(
+                '${userCredentials.user!.uid}.jpg'); //could also use _firebase.currentUser!.uid
+        firebaseimageupload.putFile(_selectedimage!);
+        final imageurl = await firebaseimageupload.getDownloadURL();
       }
     } on FirebaseAuthException catch (error) {
       if (error.code == 'email-already-in-use') {
