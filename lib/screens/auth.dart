@@ -30,7 +30,10 @@ class _AuthScreenState extends State<AuthScreen> {
 
     _formkey.currentState!.save();
     try {
-      _isauthenticating = true;
+      setState(() {
+        _isauthenticating = true;
+      });
+      ;
       if (_islogin) {
         // Log user in
         final userCredentials = await _firebase.signInWithEmailAndPassword(
