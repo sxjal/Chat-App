@@ -16,18 +16,27 @@ class _NewMessageState extends State<NewMessage> {
     super.dispose();
   }
 
-  void _submitmessage() {
+  void _submitmessage() async {
     final enteredtext = _textmsgcontroller.text;
     if (enteredtext.isEmpty) {
       return;
     }
     _textmsgcontroller.clear();
+    final currentusername = FirebaseAuth.instance.currentUser!.uid;
+    final currentprofilepicture = await FirebaseFirestore.instance
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
 
-    FirebaseFirestore.instance.collection("chat").add({
-      "text": enteredtext,
-      "createdAt": Timestamp.now(),
-      "userid": FirebaseAuth.instance.currentUser,
-    });
+    FirebaseFirestore.instance.collection("chat").add(
+      {
+        "text": enteredtext,
+        "createdAt": Timestamp.now(),
+        "userid": FirebaseAuth.instance.currentUser,
+        "username": currentusername,
+        "userimage": currentprofilepicture["image_url"],
+      },
+    );
     //send data to firebase
   }
 
