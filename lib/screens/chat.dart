@@ -21,10 +21,21 @@ class ChatScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: const Column(
+      body: Column(
         children: [
-          ChatMessages(),
-          NewMessage(),
+          Expanded(
+            child: GestureDetector(
+              onTap: () {
+                FocusScopeNode currentFocus = FocusScope.of(context);
+
+                if (!currentFocus.hasPrimaryFocus) {
+                  currentFocus.unfocus();
+                }
+              },
+              child: const ChatMessages(),
+            ),
+          ),
+          const NewMessage(),
         ],
       ),
     );

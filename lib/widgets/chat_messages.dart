@@ -5,9 +5,19 @@ class ChatMessages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        "No messages found!",
+    return GestureDetector(
+      onTap: () {
+        //FocusScope.of(context).unfocus();
+        FocusScopeNode currentFocus = FocusScope.of(context);
+
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: Center(
+        child: Text(
+          "No messages found!",
+        ),
       ),
     );
   }
