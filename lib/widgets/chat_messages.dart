@@ -52,6 +52,8 @@ class ChatMessages extends StatelessWidget {
               final currentchatmsg = chatmsg["userid"];
               final nextchatmsguser =
                   nextchatmsg != null ? nextchatmsg["userid"] : null;
+
+              final isnextusersame = currentchatmsg == nextchatmsguser;
             },
             itemCount: chatsnapshot.data!.docs.length);
       },
