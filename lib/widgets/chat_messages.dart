@@ -17,6 +17,20 @@ class ChatMessages extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         }
+
+        if (!chatsnapshot.hasData || chatsnapshot.data!.docs.isEmpty) {
+          return const Center(
+            child: Text("No messages yet!"),
+          );
+        }
+
+        if (chatsnapshot.hasError) {
+          return const Center(
+            child: Text("Something went wrong!"),
+          );
+        }
+
+        return ListView.builder(itemBuilder: itemBuilder);
       },
     );
   }
