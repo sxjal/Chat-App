@@ -1,4 +1,6 @@
+import 'package:chatapp/widgets/chat_bubble.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ChatMessages extends StatelessWidget {
@@ -54,6 +56,22 @@ class ChatMessages extends StatelessWidget {
                   nextchatmsg != null ? nextchatmsg["userid"] : null;
 
               final isnextusersame = currentchatmsg == nextchatmsguser;
+
+              if (isnextusersame) {
+                return MessageBubble.next(
+                  message: chatmsg["text"],
+                  isMe: chatmsg["userid"] ==
+                      FirebaseAuth.instance.currentUser!.uid,
+                );
+              } else {
+                return MessageBubble.first(
+                  userImage: chatmsg["userimage"],
+                  username: chatmsg["username"],
+                  message: chatmsg["text"],
+                  isMe: chatmsg["userid"] ==
+                      FirebaseAuth.instance.currentUser!.uid,
+                );
+              }
             },
             itemCount: chatsnapshot.data!.docs.length);
       },
