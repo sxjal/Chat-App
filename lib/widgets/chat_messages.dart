@@ -35,7 +35,7 @@ class ChatMessages extends StatelessWidget {
             child: Text("Something went wrong!"),
           );
         }
-
+        final loadedmsg = chatsnapshot.data!.docs;
         return ListView.builder(
             padding: const EdgeInsets.only(
               bottom: 40,
@@ -44,7 +44,10 @@ class ChatMessages extends StatelessWidget {
             ),
             reverse: true,
             itemBuilder: (ctx, index) {
-              return Text(chatsnapshot.data!.docs[index]["text"]);
+              final chatmsg = loadedmsg[index]["text"];
+              final nextchatmsg = index + 1 < loadedmsg.length
+                  ? chatsnapshot.data!.docs[index + 1]["text"]
+                  : null;
             },
             itemCount: chatsnapshot.data!.docs.length);
       },
