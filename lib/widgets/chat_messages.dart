@@ -65,11 +65,11 @@ class ChatMessages extends StatelessWidget {
                 );
               } else {
                 return MessageBubble.first(
-                  userImage: chatmsg["userimage"],
+                  userImage: chatmsg["userImage"],
                   username: chatmsg["username"],
                   message: chatmsg["text"],
-                  isMe: chatmsg["userid"] ==
-                      FirebaseAuth.instance.currentUser!.uid,
+                  isMe:
+                      currentchatmsg == FirebaseAuth.instance.currentUser!.uid,
                 );
               }
             },
