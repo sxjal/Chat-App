@@ -14,6 +14,10 @@ class _NewMessageState extends State<NewMessage> {
     super.dispose();
   }
 
+  void _submitmessage() {
+    final enteredtext = _textmsgcontroller.text;
+  }
+
   @override
   Widget build(context) {
     return Padding(
@@ -36,7 +40,7 @@ class _NewMessageState extends State<NewMessage> {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: _submitmessage,
             icon: const Icon(Icons.send),
             color: Theme.of(context).colorScheme.primary,
           ),
