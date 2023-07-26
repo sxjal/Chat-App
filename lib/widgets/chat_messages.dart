@@ -37,6 +37,12 @@ class ChatMessages extends StatelessWidget {
         }
 
         return ListView.builder(
+            padding: const EdgeInsets.only(
+              bottom: 40,
+              left: 30,
+              right: 30,
+            ),
+            reverse: true,
             itemBuilder: (ctx, index) {
               return Text(chatsnapshot.data!.docs[index]["text"]);
             },
