@@ -22,13 +22,14 @@ class _NewMessageState extends State<NewMessage> {
       return;
     }
     _textmsgcontroller.clear();
+
     final currentuser = FirebaseAuth.instance.currentUser!;
     final userdata = await FirebaseFirestore.instance
         .collection("users")
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
 
-    FirebaseFirestore.instance.collection("chat").add(
+    final resp = await FirebaseFirestore.instance.collection("chat").add(
       {
         "text": enteredtext,
         "createdAt": Timestamp.now(),
@@ -37,6 +38,7 @@ class _NewMessageState extends State<NewMessage> {
         "userimage": userdata["image_url"],
       },
     );
+    print(resp);
     //send data to firebase
   }
 

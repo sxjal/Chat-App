@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class ChatMessages extends StatelessWidget {
@@ -5,20 +6,6 @@ class ChatMessages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        //FocusScope.of(context).unfocus();
-        FocusScopeNode currentFocus = FocusScope.of(context);
-
-        if (!currentFocus.hasPrimaryFocus) {
-          currentFocus.unfocus();
-        }
-      },
-      child: Center(
-        child: Text(
-          "No messages found!",
-        ),
-      ),
-    );
+    return StreamBuilder(stream: FirebaseFirestore.instance.collection('chat').snapshots(), builder: ,);
   }
 }
