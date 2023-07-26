@@ -11,7 +11,7 @@ class ChatMessages extends StatelessWidget {
           .collection('chat')
           .orderBy(
             'createdAt',
-            descending: false,
+            descending: true,
           )
           .snapshots(),
       //here we are listening to the stream of data from firebase
