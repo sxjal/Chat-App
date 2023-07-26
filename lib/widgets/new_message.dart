@@ -22,8 +22,8 @@ class _NewMessageState extends State<NewMessage> {
       return;
     }
     _textmsgcontroller.clear();
-    final currentusername = FirebaseAuth.instance.currentUser!.uid;
-    final currentprofilepicture = await FirebaseFirestore.instance
+    final currentuser = FirebaseAuth.instance.currentUser!;
+    final userdata = await FirebaseFirestore.instance
         .collection("users")
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
@@ -32,9 +32,9 @@ class _NewMessageState extends State<NewMessage> {
       {
         "text": enteredtext,
         "createdAt": Timestamp.now(),
-        "userid": FirebaseAuth.instance.currentUser,
-        "username": currentusername,
-        "userimage": currentprofilepicture["image_url"],
+        "userid": currentuser.uid,
+        "username": userdata["username"],
+        "userimage": userdata["image_url"],
       },
     );
     //send data to firebase
