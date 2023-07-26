@@ -9,6 +9,24 @@ class NewMessage extends StatefulWidget {
 class _NewMessageState extends State<NewMessage> {
   @override
   Widget build(context) {
-    return Container();
+    return Padding(
+      padding: const EdgeInsets.only(
+        right: 1,
+        bottom: 14,
+        left: 15,
+      ),
+      child: Row(
+        children: [
+          const Expanded(
+            child: TextField(),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.send),
+            color: Theme.of(context).primaryColor,
+          ),
+        ],
+      ),
+    );
   }
 }
