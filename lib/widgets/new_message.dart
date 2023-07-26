@@ -16,6 +16,9 @@ class _NewMessageState extends State<NewMessage> {
 
   void _submitmessage() {
     final enteredtext = _textmsgcontroller.text;
+    if (enteredtext.isEmpty) {
+      return;
+    }
   }
 
   @override
@@ -37,6 +40,7 @@ class _NewMessageState extends State<NewMessage> {
                 labelText: "Send a message...",
               ),
               controller: _textmsgcontroller,
+              onSubmitted: (value) => value.isEmpty ? "cannot be null" : null,
             ),
           ),
           IconButton(
