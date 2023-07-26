@@ -48,6 +48,10 @@ class ChatMessages extends StatelessWidget {
               final nextchatmsg = index + 1 < loadedmsg.length
                   ? chatsnapshot.data!.docs[index + 1]["text"]
                   : null;
+
+              final currentchatmsg = chatmsg["userid"];
+              final nextchatmsguser =
+                  nextchatmsg != null ? nextchatmsg["userid"] : null;
             },
             itemCount: chatsnapshot.data!.docs.length);
       },
