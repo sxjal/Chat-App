@@ -7,6 +7,13 @@ class NewMessage extends StatefulWidget {
 }
 
 class _NewMessageState extends State<NewMessage> {
+  final _textmsgcontroller = TextEditingController();
+
+  void dispose() {
+    _textmsgcontroller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(context) {
     return Padding(
@@ -17,14 +24,16 @@ class _NewMessageState extends State<NewMessage> {
       ),
       child: Row(
         children: [
-          const Expanded(
+          Expanded(
             child: TextField(
-                textCapitalization: TextCapitalization.sentences,
-                autocorrect: true,
-                enableSuggestions: true,
-                decoration: InputDecoration(
-                  labelText: "Send a message...",
-                )),
+              textCapitalization: TextCapitalization.sentences,
+              autocorrect: true,
+              enableSuggestions: true,
+              decoration: const InputDecoration(
+                labelText: "Send a message...",
+              ),
+              controller: _textmsgcontroller,
+            ),
           ),
           IconButton(
             onPressed: () {},
