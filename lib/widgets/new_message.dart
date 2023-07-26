@@ -19,6 +19,9 @@ class _NewMessageState extends State<NewMessage> {
     if (enteredtext.isEmpty) {
       return;
     }
+    _textmsgcontroller.clear();
+
+    //send data to firebase
   }
 
   @override
@@ -32,7 +35,7 @@ class _NewMessageState extends State<NewMessage> {
       child: Row(
         children: [
           Expanded(
-            child: TextField(
+            child: TextFormField(
               textCapitalization: TextCapitalization.sentences,
               autocorrect: true,
               enableSuggestions: true,
@@ -40,7 +43,6 @@ class _NewMessageState extends State<NewMessage> {
                 labelText: "Send a message...",
               ),
               controller: _textmsgcontroller,
-              onSubmitted: (value) => value.isEmpty ? "cannot be null" : null,
             ),
           ),
           IconButton(
