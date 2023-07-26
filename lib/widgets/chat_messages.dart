@@ -6,6 +6,9 @@ class ChatMessages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(stream: FirebaseFirestore.instance.collection('chat').snapshots(), builder: ,);
+    return StreamBuilder(
+      stream: FirebaseFirestore.instance.collection('chat').snapshots(),
+      builder: (context, chatsnapshot) {},
+    );
   }
 }
