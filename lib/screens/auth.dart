@@ -22,6 +22,7 @@ class _AuthScreenState extends State<AuthScreen> {
   var passwordshown = false;
   var _enteredemail = "";
   var _enteredpassword = "";
+  var _enteredusername = "";
   File? _selectedimage;
 
   void _submit() async {
@@ -49,22 +50,24 @@ class _AuthScreenState extends State<AuthScreen> {
 
         //updating uers details
         //display name
-        _firebase.currentUser!.updateDisplayName(_enteredemail);
+
         //profile image
         final firebaseimageupload = FirebaseStorage.instance
             .ref()
             .child('user_images')
             .child(
                 '${userCredentials.user!.uid}.jpg'); //could also use _firebase.currentUser!.uid
-        firebaseimageupload.putFile(_selectedimage!);
-        final imageurl = firebaseimageupload.getDownloadURL();
+
+        await firebaseimageupload.putFile(_selectedimage!);
+
+        final imageurl = await firebaseimageupload.getDownloadURL();
 
         await FirebaseFirestore.instance
             .collection("users")
             .doc(userCredentials.user!.uid)
             .set(
           {
-            "username": _enteredemail,
+            "username": _enteredusername,
             "email": _enteredemail,
             "image_url": imageurl,
           },
@@ -144,6 +147,24 @@ class _AuthScreenState extends State<AuthScreen> {
                               onpickimage: (pickedimage) {
                                 _selectedimage = pickedimage;
                               },
+                            ),
+                          if (!_islogin)
+                            TextFormField(
+                              key: const ValueKey('username'),
+                              enableSuggestions: false,
+                              keyboardType: TextInputType.emailAddress,
+                              decoration: const InputDecoration(
+                                labelText: 'Username',
+                              ),
+                              autocorrect: false,
+                              textCapitalization: TextCapitalization.none,
+                              autofocus: true,
+                              validator: (value) =>
+                                  (value!.length < 4 || value.isEmpty)
+                                      ? 'Please enter a valid Username'
+                                      : null,
+                              onSaved: (newValue) =>
+                                  _enteredusername = newValue!,
                             ),
                           TextFormField(
                             key: const ValueKey('email'),
