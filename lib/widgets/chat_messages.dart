@@ -7,7 +7,13 @@ class ChatMessages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: FirebaseFirestore.instance.collection('chat').snapshots(),
+      stream: FirebaseFirestore.instance
+          .collection('chat')
+          .orderBy(
+            'createdAt',
+            descending: false,
+          )
+          .snapshots(),
       //here we are listening to the stream of data from firebase
       //stream in here menas the data which we have to look after
       builder: (context, chatsnapshot) {
@@ -30,7 +36,11 @@ class ChatMessages extends StatelessWidget {
           );
         }
 
-        return ListView.builder(itemBuilder: itemBuilder);
+        return ListView.builder(
+            itemBuilder: (ctx, index) {
+              return Text(chatsnapshot.data!.docs[index]["text"]);
+            },
+            itemCount: chatsnapshot.data!.docs.length);
       },
     );
   }
