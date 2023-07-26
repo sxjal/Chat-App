@@ -18,12 +18,18 @@ class _NewMessageState extends State<NewMessage> {
       child: Row(
         children: [
           const Expanded(
-            child: TextField(),
+            child: TextField(
+                textCapitalization: TextCapitalization.sentences,
+                autocorrect: true,
+                enableSuggestions: true,
+                decoration: InputDecoration(
+                  labelText: "Send a message...",
+                )),
           ),
           IconButton(
             onPressed: () {},
             icon: const Icon(Icons.send),
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).colorScheme.primary,
           ),
         ],
       ),
