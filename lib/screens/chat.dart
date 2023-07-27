@@ -12,11 +12,20 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  void init() {
-    super.initState();
-    FirebaseMessaging.instance.requestPermission();s
+  void setuppushnotification() async {
+    final fcm = FirebaseMessaging.instance;
+    await fcm.requestPermission();
+
+    fcm.getToken().then(
+          (value) => print(value),
+        );
   }
 
+  @override
+  void init() {
+    super.initState();
+    setuppushnotification();
+  }
 
   @override
   Widget build(context) {
