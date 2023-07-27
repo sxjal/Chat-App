@@ -46,16 +46,16 @@ class ChatMessages extends StatelessWidget {
             ),
             reverse: true,
             itemBuilder: (ctx, index) {
-              final chatmsg = loadedmsg[index]["text"];
+              final chatmsg = loadedmsg[index].data();
               final nextchatmsg = index + 1 < loadedmsg.length
-                  ? chatsnapshot.data!.docs[index + 1]["text"]
+                  ? loadedmsg[index + 1].data()
                   : null;
 
-              final currentchatmsg = chatmsg["userid"];
+              final currentchatuser = chatmsg["userid"];
               final nextchatmsguser =
                   nextchatmsg != null ? nextchatmsg["userid"] : null;
 
-              final isnextusersame = currentchatmsg == nextchatmsguser;
+              final isnextusersame = currentchatuser == nextchatmsguser;
 
               if (isnextusersame) {
                 return MessageBubble.next(
@@ -69,7 +69,7 @@ class ChatMessages extends StatelessWidget {
                   username: chatmsg["username"],
                   message: chatmsg["text"],
                   isMe:
-                      currentchatmsg == FirebaseAuth.instance.currentUser!.uid,
+                      currentchatuser == FirebaseAuth.instance.currentUser!.uid,
                 );
               }
             },
