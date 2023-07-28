@@ -26,16 +26,15 @@ class _AuthScreenState extends State<AuthScreen> {
   File? _selectedimage;
 
   void _submit() async {
-    final _isvalid = _formkey.currentState!.validate();
+    final isvalid = _formkey.currentState!.validate();
     String? errorcode;
-    if (!_isvalid || !_islogin && _selectedimage == null) return;
+    if (!isvalid || !_islogin && _selectedimage == null) return;
 
     _formkey.currentState!.save();
     try {
       setState(() {
         _isauthenticating = true;
       });
-      ;
       if (_islogin) {
         // Log user in
         await _firebase.signInWithEmailAndPassword(

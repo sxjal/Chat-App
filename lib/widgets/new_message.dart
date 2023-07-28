@@ -11,6 +11,7 @@ class NewMessage extends StatefulWidget {
 class _NewMessageState extends State<NewMessage> {
   final _textmsgcontroller = TextEditingController();
 
+  @override
   void dispose() {
     _textmsgcontroller.dispose();
     super.dispose();
